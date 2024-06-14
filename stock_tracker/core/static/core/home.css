@@ -1,0 +1,105 @@
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 20px;
+  text-align: center;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+.container {
+  margin-top: 50px;
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 50px;
+}
+
+.form-section {
+  margin-bottom: 30px;
+}
+
+.form-section h2 {
+  font-size: 28px;
+}
+
+
+form {
+  display: inline-block;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+form input[type="text"] {
+  padding: 10px;
+  width: 200px;
+}
+
+form button[type="submit"] {
+  padding: 10px 20px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 15px;
+  font-weight: bold;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+form button[type="submit"]:hover {
+  background-color: #5f779e;
+}
+
+.config-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #a4afbf;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.config-link:hover {
+  background-color: #0056b3;
+}
+
+#link-anchor {
+  text-decoration: none;
+  color: #fff;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.go-back-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.go-back-link:hover {
+  background-color: #0056b3;
+}
+
+#go-back-link {
+  text-decoration: none;
+  color: #fff;
+  font-family: 'Courier New', Courier, monospace;
+}

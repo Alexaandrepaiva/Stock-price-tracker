@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock Tracker</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'core/home.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Stock Tracker</h1>
+
+        <div class="form-section">
+            <h2>Take a look at the price history of your favorite stock</h2>
+            <form method="post" action="{% url 'graph' %}">
+                {% csrf_token %}
+                {{ asset_form.as_p }}
+                <button type="submit">View Graph</button>
+            </form>
+        </div>
+
+        <div class="form-section">
+            <h2>Activate email notifications for your favorite stock</h2>
+            <form method="post" action="{% url 'set_notification' %}">
+                {% csrf_token %}
+                {{ notification_form.as_p }}
+                <button type="submit">Set Notification</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
