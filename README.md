@@ -21,4 +21,8 @@ After configuring an email notification, if the value of the stock crosses any o
 
 ## Preview 
 
-TODO
+In the video above I demonstrate the use of the stock price tracker. 
+
+
+https://github.com/Alexaandrepaiva/Stock-price-tracker/assets/101399070/5f0f6f2c-360f-4710-9423-79e652ac4189
+
