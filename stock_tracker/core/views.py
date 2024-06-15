@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from .models import InvestmentAsset, PriceRecord, NotificationSetting
 from .forms import InvestmentAssetForm, NotificationSettingForm
 from .tasks import create_schedule_task
+from django.contrib import messages
 import requests
 
 def home(request):
@@ -46,5 +47,8 @@ def set_notification(request):
                 notification.notification_email,
                 notification.interval_minutes
             )
-            return redirect('home')
+            messages.success(request, 'Email notification successfully set!')
+        else:
+            messages.error(request, 'Failed to set email notification. Please check the form and try again.')
+        return redirect('home')
     return redirect('home')

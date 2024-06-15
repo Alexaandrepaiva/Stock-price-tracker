@@ -14,9 +14,7 @@ SENDER_MAIL = os.getenv('SENDER_MAIL')
 
 @shared_task
 def fetch_asset_prices():
-    assets = InvestmentAsset.objects.all()
-    symbols = ','.join([asset.ticker for asset in assets])
-    response = requests.get(f'https://fcsapi.com/api-v3/stock/latest?symbol={symbols}&access_key={API_KEY}')
+    response = requests.get(f'https://fcsapi.com/api-v3/stock/latest?country=Brazil&access_key={API_KEY}')
     data = response.json()
     if data['code'] == 200:
         for item in data['response']:

@@ -12,8 +12,7 @@ class Command(BaseCommand):
             self.stdout.write(self.style.ERROR('API_KEY is not set'))
             return
 
-        symbols = ['RAIL3', 'ABEV3', 'BBAS3']  # Add more symbols as needed
-        response = requests.get(f'https://fcsapi.com/api-v3/stock/latest?symbol={",".join(symbols)}&access_key={API_KEY}')
+        response = requests.get(f'https://fcsapi.com/api-v3/stock/latest?country=Brazil&access_key={API_KEY}')
         
         self.stdout.write(self.style.WARNING(f'Request URL: {response.url}'))
         
