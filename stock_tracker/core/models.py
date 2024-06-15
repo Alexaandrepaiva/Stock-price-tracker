@@ -25,9 +25,12 @@ class PriceRecord(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     suggested_action = models.CharField(max_length=10, null=True, blank=True)
 
+
 class NotificationSetting(models.Model):
     asset = models.ForeignKey(InvestmentAsset, on_delete=models.CASCADE)
     lower_bound = models.DecimalField(max_digits=10, decimal_places=2)
     upper_bound = models.DecimalField(max_digits=10, decimal_places=2)
     notification_email = models.EmailField()
+    interval_minutes = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
+    has_alerted = models.BooleanField(default=False)

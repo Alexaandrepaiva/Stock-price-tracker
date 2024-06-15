@@ -7,4 +7,4 @@ class InvestmentAssetForm(forms.Form):
 class NotificationSettingForm(forms.ModelForm):
     class Meta:
         model = NotificationSetting
-        fields = ['asset', 'lower_bound', 'upper_bound', 'notification_email']
+        fields = ['asset', 'lower_bound', 'upper_bound', 'interval_minutes', 'notification_email']
