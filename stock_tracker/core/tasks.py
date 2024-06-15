@@ -11,7 +11,6 @@ from .models import InvestmentAsset, PriceRecord, NotificationSetting
 # Load environment variables
 API_KEY = os.getenv('API_KEY')
 SENDER_MAIL = os.getenv('SENDER_MAIL')
-SENDER_PASSWORD = os.getenv('SENDER_PASSWORD')
 
 @shared_task
 def fetch_asset_prices():
@@ -35,21 +34,45 @@ def evaluate_price_thresholds(asset, price):
             action = "Buy" if price < setting.lower_bound else "Sell"
             send_alert(setting.notification_email, asset.full_name, price, action)
             PriceRecord.objects.create(asset=asset, price=price, suggested_action=action)
+            # Mark the setting as alerted
+            setting.has_alerted = True
+            setting.save()
+            # Stop monitoring the price after sending the alert
+            stop_monitoring_task(asset.ticker)
 
 def send_alert(email, asset_name, price, action):
+    print(f"Sending email to {email}")
     subject = f'Stock Alert for {asset_name}'
     message = f'The price of {asset_name} is now {price}. Recommended action: {action}.'
-    send_mail(subject, message, SENDER_MAIL, [email], fail_silently=False)
-
+    try:
+        send_mail(subject, message, SENDER_MAIL, [email], fail_silently=False)
+        print(f"Email sent to {email}")
+    except Exception as e:
+        print(f"Error sending email: {e}")
 
 @shared_task
 def create_schedule_task(asset_id, lower_bound, upper_bound, email, interval_minutes):
     asset = InvestmentAsset.objects.get(id=asset_id)
     schedule, created = IntervalSchedule.objects.get_or_create(every=interval_minutes, period=IntervalSchedule.MINUTES)
     PeriodicTask.objects.create(
-        name=f"{asset.ticker}_task",
+        name=f"{asset.ticker}_notification_task",
         task="core.tasks.fetch_asset_prices",
         interval=schedule,
     )
-    NotificationSetting.objects.create(asset=asset, lower_bound=lower_bound, upper_bound=upper_bound, notification_email=email)
+    NotificationSetting.objects.create(
+        asset=asset,
+        lower_bound=lower_bound,
+        upper_bound=upper_bound,
+        notification_email=email,
+        interval_minutes=interval_minutes
+    )
     return "Scheduled Task and Notification Setting created"
+
+def stop_monitoring_task(ticker):
+    try:
+        task = PeriodicTask.objects.filter(name__startswith=f"{ticker}_notification_task").last()
+        if task:
+            task.enabled = False
+            task.save()
+    except PeriodicTask.DoesNotExist:
+        pass

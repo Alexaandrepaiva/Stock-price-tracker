@@ -1,3 +1,5 @@
+import environ
+import os
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -127,3 +129,13 @@ CELERY_RESULT_BACKEND = 'django-db'
 # Celery Beat
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.getenv('SENDER_MAIL')
+EMAIL_HOST_PASSWORD = os.getenv('SENDER_PASSWORD')
