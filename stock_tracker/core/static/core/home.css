@@ -1,11 +1,12 @@
 body, html {
+  font-family: "Inter";
+  font-style: normal;
   margin: 0;
   padding: 0;
 }
 
 body {
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 20px;
+  font-size: 16px;
   text-align: center;
   background-color: #f8f9fa;
   color: #333;
@@ -16,28 +17,36 @@ body {
 }
 
 h1 {
+  font-family: 'Courier New', Courier, monospace;
   color: #333;
-  margin-bottom: 30px;
-  font-size: 50px;
+  margin-bottom: 54px;
+  font-size: 64px;
 }
 
 .form-section {
-  margin-bottom: 30px;
+  margin-bottom: 48px;
 }
 
 .form-section h2 {
   font-size: 28px;
+  font-family: 'Courier New', Courier, monospace;
 }
 
+.graph-subtitle, .notification-subtitle {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
 
 form {
   display: inline-block;
-  font-family: 'Courier New', Courier, monospace;
   font-weight: bold;
-  padding: 20px;
+  font-weight: 400;
+  padding: 32px;
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 600px;
 }
 
 form input[type="text"] {
@@ -46,8 +55,7 @@ form input[type="text"] {
 }
 
 form button[type="submit"] {
-  padding: 10px 20px;
-  font-family: 'Courier New', Courier, monospace;
+  padding: 10px 24px;
   font-size: 15px;
   font-weight: bold;
   background-color: #333;
@@ -55,6 +63,7 @@ form button[type="submit"] {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  margin-top: 12px;
 }
 
 form button[type="submit"]:hover {
@@ -79,7 +88,6 @@ form button[type="submit"]:hover {
 #link-anchor {
   text-decoration: none;
   color: #fff;
-  font-family: 'Courier New', Courier, monospace;
 }
 
 .go-back-link {
@@ -101,5 +109,4 @@ form button[type="submit"]:hover {
 #go-back-link {
   text-decoration: none;
   color: #fff;
-  font-family: 'Courier New', Courier, monospace;
 }

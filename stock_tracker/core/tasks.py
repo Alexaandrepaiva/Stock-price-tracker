@@ -54,18 +54,40 @@ def send_alert(email, asset_name, price, action):
 def create_schedule_task(asset_id, lower_bound, upper_bound, email, interval_minutes):
     asset = InvestmentAsset.objects.get(id=asset_id)
     schedule, created = IntervalSchedule.objects.get_or_create(every=interval_minutes, period=IntervalSchedule.MINUTES)
-    PeriodicTask.objects.create(
-        name=f"{asset.ticker}_notification_task",
-        task="core.tasks.fetch_asset_prices",
-        interval=schedule,
-    )
-    NotificationSetting.objects.create(
+    
+    # Check if the task already exists
+    task_name = f"{asset.ticker}_notification_task"
+    existing_task = PeriodicTask.objects.filter(name=task_name).first()
+    
+    if existing_task:
+        # Update the existing task
+        existing_task.interval = schedule
+        existing_task.save()
+    else:
+        # Create a new task
+        PeriodicTask.objects.create(
+            name=task_name,
+            task="core.tasks.fetch_asset_prices",
+            interval=schedule,
+        )
+    
+    # Check if the notification setting already exists
+    notification_exists = NotificationSetting.objects.filter(
         asset=asset,
         lower_bound=lower_bound,
         upper_bound=upper_bound,
-        notification_email=email,
-        interval_minutes=interval_minutes
-    )
+        notification_email=email
+    ).exists()
+    
+    if not notification_exists:
+        NotificationSetting.objects.create(
+            asset=asset,
+            lower_bound=lower_bound,
+            upper_bound=upper_bound,
+            notification_email=email,
+            interval_minutes=interval_minutes
+        )
+    
     return "Scheduled Task and Notification Setting created"
 
 def stop_monitoring_task(ticker):

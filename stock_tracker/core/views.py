@@ -16,7 +16,10 @@ def graph(request):
         form = InvestmentAssetForm(request.POST)
         if form.is_valid():
             asset = form.cleaned_data['asset']
-            quotes = PriceRecord.objects.filter(asset=asset).order_by('recorded_at')
+            quotes = PriceRecord.objects.filter(asset=asset).order_by('-recorded_at')[:20]  # Get the latest 20 records
+
+            # Reverse the order to show the oldest first
+            quotes = quotes[::-1]
 
             labels = [quote.recorded_at.strftime("%Y-%m-%d %H:%M:%S") for quote in quotes]
             prices = [float(quote.price) for quote in quotes]
@@ -29,6 +32,7 @@ def graph(request):
 
             return render(request, 'core/graph.html', context)
     return redirect('home')
+
 
 def set_notification(request):
     if request.method == 'POST':

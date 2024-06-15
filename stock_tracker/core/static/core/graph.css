@@ -4,7 +4,7 @@ body, html {
 }
 
 body {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Inter";
   font-size: 20px;
   text-align: center;
   background-color: #f8f9fa;
@@ -25,10 +25,11 @@ body {
 }
 
 h1 {
+  font-family: 'Courier New', Courier, monospace;
   text-align: center;
   font-size: 50px;
   color: #333;
-  margin-bottom: 20px;
+  margin-bottom: 54px;
 }
 
 canvas {
@@ -63,7 +64,7 @@ canvas {
 
 .button {
   display: inline-block;
-  padding: 10px 20px;
+  padding: 10px 24px;
   font-family: 'Courier New', Courier, monospace;
   font-size: 15px;
   font-weight: bold;
@@ -78,4 +79,10 @@ canvas {
 
 .button:hover {
   background-color: #5f779e;
+}
+
+.container p {
+  font-size: 20px;
+  font-weight: 300;
+  margin-bottom: 32px;
 }
